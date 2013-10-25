@@ -24,19 +24,67 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello World</title>
+		<script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        
+        <script type="text/javascript" charset="utf-8">
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+	 
+	 
+	function onDeviceReady()
+	{
+		/*
+    	 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+        window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
+		
+		function onFileSystemSuccess(fileSystem) {
+        alert("onFileSystemSuccess: "+fileSystem.name);
+		}
+	
+		function onResolveSuccess(fileEntry) {
+			alert("onResolveSuccess: "+fileEntry.name);
+		}
+	
+		function fail(evt) {
+			alert("Error: "+evt.target.error.code);
+		}
+		*/
+		navigator.file.read('/sdcard/pdf/poster.pdf', fail, fail);
+		storeIntelligrapeLogo()
+
+	}
+	
+	function fail(msg) {
+    alert('MEssage: '+msg);
+}
+	function storeIntelligrapeLogo(){
+		alert('Carregando');
+		  var url = "http://www.eventoacr.com.br/pdf/poster.pdf"; // image url
+		  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+			  var imagePath = fs.root.fullPath + "/poster.pdf"; // full file path
+			  var fileTransfer = new FileTransfer();
+			  fileTransfer.download(url, imagePath, function (entry) {
+					   alert(entry.fullPath); // entry is fileEntry object
+			  }, function (error) {
+					   alert("Some error");
+			  });
+		   })
+		}
+    </script>
+    
     </head>
     <body>
         <div class="app">
             <h1>PhoneGap</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event received">V. 1.0</p>
             </div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        
+       
     </body>
 </html>
